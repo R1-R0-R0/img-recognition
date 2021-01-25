@@ -5,6 +5,8 @@ from pixel import Pixel;
 class Image:
 
     def __init__(self, filename):
+        print(filename);
+
         self.red, self.green, self.blue = [], [], [];
 
         img = Img.open(filename);
@@ -29,7 +31,7 @@ class Image:
         plt.hist([self.red, self.green, self.blue], color=["red", "green", "blue"])
         plt.savefig("hist.png");
 
-    def colors_percents(self):
+    def get_colors_percents(self):
         percents = [0] * 3;
 
         for i in range(self.width):
