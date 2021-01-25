@@ -1,11 +1,11 @@
 from PIL import Image as Img;
-import Pixel.py;
+from pixel import Pixel;
 
 class Image:
     def __init__(self, filename):
         self.r, self.g, self.b = [], [], [];
 
-        img = Img.open();
+        img = Img.open(filename);
         pix = img.load();
         size = img.size;
 

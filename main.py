@@ -1,3 +1,6 @@
-def determine(filename):
-    # return 1; si mer
-    # return -1; si ailleurs 
+from image import Image;
+
+img = Image("orange.jpg");
+pixel = img.get_pixel(0);
+
+print(pixel.red);
