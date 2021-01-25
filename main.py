@@ -1,7 +1,8 @@
 from image import Image;
 
-img = Image("orange.jpg");
+img = Image("./Data/Mer/838s.jpg");
 pixel = img.get_pixel(0);
 
 print(pixel.red);
-print(img.size());
+print(img.width);
+print(img.height);
