@@ -1,4 +1,5 @@
 from PIL import Image as Img;
+import matplotlib.pyplot as plt
 from pixel import Pixel;
 
 class Image:
@@ -23,3 +24,8 @@ class Image:
     def get_pixel(self, x, y):
         i = (y * self.width + x);
         return Pixel(self.red[i], self.green[i], self.blue[i]);
+
+    def createHistogram (self) :
+        plt.hist([self.red, self.green, self.blue], color=["red", "green", "blue"])
+        plt.title("orange.jpg");
+        plt.savefig("hist.png");
