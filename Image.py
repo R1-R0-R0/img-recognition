@@ -17,8 +17,8 @@ class Image:
                 self.g.append(pixel[1]);
                 self.b.append(pixel[2]);
 
-    def get_pixel(x, y):
+    def get_pixel(self, x, y):
         return;
 
-    def get_pixel(i):
+    def get_pixel(self, i):
         return Pixel(self.r[i], self.g[i], self.b[i]);
