@@ -8,7 +8,7 @@ class PercentColorsAI:
 
     def __init__(self):
         print("Init PercentColorsAI");
-        
+
         averagePercentColors = [];
         classes = [];
         listMer = os.listdir('./Data/Mer');
@@ -36,9 +36,12 @@ class PercentColorsAI:
 
         y_preditected = classifieur.predict(X_test);
         print("Vrai classes :");
-        print(y_text);
+        print(y_test);
         print("Classes prédites :");
         print(y_preditected);
+
+        print("Score: ")
+        print(classifieur.score(X_test, y_test))
 
     def evaluate(img):
         return -1;

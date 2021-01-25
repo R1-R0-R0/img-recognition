@@ -9,7 +9,7 @@ class Image:
 
         self.red, self.green, self.blue = [], [], [];
 
-        img = Img.open(filename);
+        img = Img.open(filename).convert('RGB');
         pix = img.load();
         size = img.size;
         self.width = size[0];
