@@ -21,7 +21,5 @@ class Image:
                 self.blue.append(pixel[2]);
 
     def get_pixel(self, x, y):
-        return;
-
-    def get_pixel(self, i):
+        i = (y * self.width + x);
         return Pixel(self.red[i], self.green[i], self.blue[i]);
