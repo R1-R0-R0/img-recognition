@@ -22,3 +22,6 @@ class Image:
 
     def get_pixel(self, i):
         return Pixel(self.r[i], self.g[i], self.b[i]);
+
+    def size(self):
+        return len(self.r);
