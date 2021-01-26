@@ -19,16 +19,12 @@ class PercentColorsAI:
             percentColors = img.get_colors_percents();
             averagePercentColors.append(percentColors);
             classes.append(0);
-            if (len(classes) == 25):
-                break;
 
         for file in listAilleurs:
             img = Image("./Data/Ailleurs/" + file);
             percentColors = img.get_colors_percents();
             averagePercentColors.append(percentColors);
             classes.append(1);
-            if (len(classes) == 50):
-                break;
 
         X = np.array(averagePercentColors);
         y = np.array(classes);
