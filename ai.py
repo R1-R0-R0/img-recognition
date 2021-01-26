@@ -19,29 +19,39 @@ class PercentColorsAI:
             percentColors = img.get_colors_percents();
             averagePercentColors.append(percentColors);
             classes.append(0);
+            if (len(classes) == 25):
+                break;
 
         for file in listAilleurs:
             img = Image("./Data/Ailleurs/" + file);
             percentColors = img.get_colors_percents();
             averagePercentColors.append(percentColors);
             classes.append(1);
+            if (len(classes) == 50):
+                break;
 
         X = np.array(averagePercentColors);
         y = np.array(classes);
 
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20);
 
-        classifieur = GaussianNB();
-        classifieur.fit(X_train, y_train);
+        self.classifieur = GaussianNB();
+        self.classifieur.fit(X_train, y_train);
 
-        y_preditected = classifieur.predict(X_test);
-        print("Vrai classes :");
+        y_preditected = self.classifieur.predict(X_test);
+        print("Real classes :");
         print(y_test);
-        print("Classes prédites :");
+        print("Predicted classes :");
         print(y_preditected);
 
         print("Score: ")
-        print(classifieur.score(X_test, y_test))
+        print(self.classifieur.score(X_test, y_test))
 
-    def evaluate(img):
-        return -1;
+    def evaluate(self, img: Image):
+        percentColors = img.get_colors_percents();
+
+        X = np.array([percentColors]);
+
+        y_preditected = self.classifieur.predict(X);
+
+        return 1 if y_preditected == 0 else -1;

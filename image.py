@@ -5,8 +5,7 @@ from pixel import Pixel;
 class Image:
 
     def __init__(self, filename):
-        print(filename);
-
+        self.name = filename;
         self.red, self.green, self.blue = [], [], [];
 
         img = Img.open(filename).convert('RGB');
