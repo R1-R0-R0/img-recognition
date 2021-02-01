@@ -1,6 +1,7 @@
 import os;
 import numpy as np;
 import file_mgr as fm
+import imgDescriptor as id
 from sklearn.model_selection import train_test_split;
 from sklearn.naive_bayes import GaussianNB;
 from image import Image;
@@ -103,3 +104,49 @@ class PercentColorsAI:
 
         print("Score: ")
         print(self.classifieur.score(X_test, y_test))
+
+class PixelArrayAi:
+    def __init__(self):
+        print("init PixelArrayAi")
+        desiredSize = 10
+        descriptors = [];
+        classes = [];
+        listMer = os.listdir('./Data/Mer');
+        listAilleurs = os.listdir('./Data/Ailleurs');
+
+        for file in listMer:
+            descriptor = id.imgDescriptor("./Data/Mer/" + file,desiredSize)
+            descriptors.append(descriptor)
+            classes.append(0);
+
+        for file in listAilleurs:
+            descriptor = id.imgDescriptor("./Data/Ailleurs/" + file, desiredSize)
+            descriptors.append(descriptor)
+            classes.append(1);
+
+        X = np.array(descriptors);
+        y = np.array(classes);
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20);
+
+        self.classifieur = GaussianNB();
+        self.classifieur.fit(X_train, y_train);
+
+        y_preditected = self.classifieur.predict(X_test);
+        print("Real classes :");
+        print(y_test);
+        print("Predicted classes :");
+        print(y_preditected);
+
+        print("Score: ")
+        print(self.classifieur.score(X_test, y_test))
+
+
+    def evaluate(self, img: Image):
+        percentColors = img.get_colors_percents();
+
+        X = np.array([percentColors]);
+
+        y_preditected = self.classifieur.predict(X);
+
+        return 1 if y_preditected == 0 else -1;
