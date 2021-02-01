@@ -6,6 +6,12 @@ from sklearn.model_selection import train_test_split;
 from sklearn.naive_bayes import GaussianNB;
 import file_mgr as fm
 
+
+tomAI = ai.PixelArrayAi()
+
+exit()
+
+
 X, y = fm.loadDatas("Percent_AI")
 sum = 0
 for i in range(1000):

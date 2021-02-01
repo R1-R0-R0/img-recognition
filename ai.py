@@ -115,12 +115,12 @@ class PixelArrayAi:
         listAilleurs = os.listdir('./Data/Ailleurs');
 
         for file in listMer:
-            descriptor = id.imgDescriptor("./Data/Mer/" + file,desiredSize)
+            descriptor = id.imgDescriptor("./Data/Mer/" + file,desiredSize).getDescriptor()
             descriptors.append(descriptor)
             classes.append(0);
 
         for file in listAilleurs:
-            descriptor = id.imgDescriptor("./Data/Ailleurs/" + file, desiredSize)
+            descriptor = id.imgDescriptor("./Data/Ailleurs/" + file, desiredSize).getDescriptor()
             descriptors.append(descriptor)
             classes.append(1);
 
