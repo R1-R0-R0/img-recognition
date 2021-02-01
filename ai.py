@@ -108,7 +108,7 @@ class PercentColorsAI:
 class PixelArrayAi:
     def __init__(self):
         print("init PixelArrayAi")
-        desiredSize = 10
+        desiredSize = 100
         descriptors = [];
         classes = [];
         listMer = os.listdir('./Data/Mer');

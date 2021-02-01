@@ -11,7 +11,10 @@ class imgDescriptor:
         for pixelLine in resizedImg:
             for pixel in pixelLine:
                 #print(pixel,'tamere')
-                self.array.append(pixel)
+                colors = [pixel[0],pixel[1],pixel[2]]
+                self.array.append(pixel[0])
+                self.array.append(pixel[1])
+                self.array.append(pixel[2])
         self.descriptor = np.array(self.array)
         print(self.descriptor)
 
@@ -19,4 +22,4 @@ class imgDescriptor:
         return self.descriptor
 
 #example
-img = imgDescriptor('./orange.jpg',10)
+#img = imgDescriptor('./orange.jpg',10)
