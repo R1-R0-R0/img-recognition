@@ -1,5 +1,10 @@
 import os;
 import numpy as np;
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
 import file_mgr as fm
 import imgDescriptor as id
 from sklearn.model_selection import train_test_split;
@@ -126,12 +131,9 @@ class PixelArrayAi:
 
         X = np.array(descriptors);
         y = np.array(classes);
-
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20);
-
         self.classifieur = GaussianNB();
         self.classifieur.fit(X_train, y_train);
-
         y_preditected = self.classifieur.predict(X_test);
         print("Real classes :");
         print(y_test);
@@ -141,6 +143,38 @@ class PixelArrayAi:
         print("Score: ")
         print(self.classifieur.score(X_test, y_test))
 
+class HOGAi:
+    print("init HOGAi")
+    def __init__(self):
+        desiredSize = 128
+        descriptors = [];
+        classes = [];
+        listMer = os.listdir('./Data/Mer');
+        listAilleurs = os.listdir('./Data/Ailleurs');
+
+        for file in listMer:
+            descriptor = id.imgDescriptor("./Data/Mer/" + file, desiredSize).getHOG()
+            descriptors.append(descriptor)
+            classes.append(0);
+
+        for file in listAilleurs:
+            descriptor = id.imgDescriptor("./Data/Ailleurs/" + file, desiredSize).getHOG()
+            descriptors.append(descriptor)
+            classes.append(1);
+
+        X = np.array(descriptors);
+        y = np.array(classes);
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20);
+        self.classifieur = KNeighborsClassifier(3)
+        self.classifieur.fit(X_train, y_train);
+        y_preditected = self.classifieur.predict(X_test);
+        print("Real classes :");
+        print(y_test);
+        print("Predicted classes :");
+        print(y_preditected);
+
+        print("Score: ")
+        print(self.classifieur.score(X_test, y_test))
 
     def evaluate(self, img: Image):
         percentColors = img.get_colors_percents();

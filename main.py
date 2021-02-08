@@ -7,7 +7,7 @@ from sklearn.naive_bayes import GaussianNB;
 import file_mgr as fm
 
 
-tomAI = ai.PixelArrayAi()
+tomAI = ai.HOGAi()
 
 exit()
 
