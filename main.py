@@ -78,6 +78,6 @@ def loadData():
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = load('test_data')
+    X, y = loadData()
     classifier = ClassifierAxiom('PercentColors')
     classifier_test(classifier, X, y, 1000, 0.20)
