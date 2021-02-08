@@ -1,4 +1,4 @@
-from classifier import Classifier
+from classes.classifier import Classifier
 from sklearn.naive_bayes import GaussianNB;
 import numpy as np;
 
@@ -27,11 +27,14 @@ class ClassifierAxiom(Classifier):
     def reset(self):
         self.classifier = GaussianNB()
 
+    def score(self, y_test: np.array, y_predicted: np.array):
+        return self.classifier.score(y_test, y_predicted)
+
 
 def extract_X(criterias, infos):
     results = []
     
     for criteria in criterias:
-        result.append(infos[criteria])
+        results.append(infos[criteria])
 
     return results

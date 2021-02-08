@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import numpy as np;
 
 class Classifier(ABC):
 
@@ -9,4 +10,7 @@ class Classifier(ABC):
         pass
 
     def reset(self):
+        pass
+
+    def score(self, y_test: np.array, y_predicted: np.array):
         pass

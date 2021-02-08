@@ -103,7 +103,7 @@ class PercentColorsAI:
         print(y_preditected);
 
         print("Score: ")
-        print(self.classifieur.score(X_test, y_test))
+        print(self.classifieur.score(y_test, y_preditected))
 
 class PixelArrayAi:
     def __init__(self):
