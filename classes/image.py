@@ -2,6 +2,7 @@ from PIL import Image as Img;
 import matplotlib.pyplot as plt
 from pixel import Pixel;
 from math import ceil
+import classes.descriptors.listDescriptors as listDescriptors
 
 class Image:
 
@@ -45,6 +46,16 @@ class Image:
     def create_histogram (self) :
         plt.hist([self.red, self.green, self.blue], color=["red", "green", "blue"])
         plt.savefig("hist.png");
+
+    def getDescriptors(self):
+        X = []
+        descriptors = listDescriptors.getAllDescriptors()
+
+        dico = dict()
+        for descriptor in descriptors:
+            dico[descriptor.getName()] = descriptor.getImageInfo(self)
+
+        return dico
 
     def get_colors_percents(self):
         percents = [0] * 3;
@@ -102,13 +113,3 @@ class Image:
                 result[x][y] = self.partition(minX,minY,maxX,maxY)
 
         return result
-
-    def getDescriptor():
-        dico = dict()
-
-        percentColors = self.get_colors_percents()
-        dico['averageRedPercent'] = percentColors[0]
-        dico['averageGreenPercent'] = percentColors[1]
-        dico['averageBluePercent'] = percentColors[2]
-
-        return dico

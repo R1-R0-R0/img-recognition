@@ -21,14 +21,14 @@ def classifier_test(classifier: Classifier, X: np.array, y: np.array, number_of_
     
     classifier.reset()
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=default_test_size);
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=default_test_size)
 
     classifier.fit(X_train, y_train)
-    y_predicted = classifier.predict(X_test);
+    y_predicted = classifier.predict(X_test)
 
     print("--- Simple test ---")
-    print("Real classes : ", y_test);
-    print("Predicted classes : ", y_predicted);
+    print("Real classes : ", y_test)
+    print("Predicted classes : ", y_predicted)
     print("Score : ", accuracy_score(y_test,y_predicted))
 
     print()

@@ -1,27 +1,32 @@
 from classes.classifier_combine import ClassifierCombine
+from classes.classifier_axiom import ClassifierAxiom
 import numpy as np
 from classes.image import Image
 import os
+from classes.classifier import classifier_test
 
 class Main:
 
     def __init__(self):
         self.classifier = ClassifierCombine()
 
+    def test(self, numberOfTests = 100, defaultTestSize = 0.20):
+        X, y = loadData()
+        classifier_test(self.classifier, X, y, number_of_tests=numberOfTests, default_test_size=defaultTestSize)
+
 
 def save(filename, X: np.array, y: np.array):
     print("Saving samples in Data file...")
     with open('./Data/' + filename + ".R0", 'wb') as file:
-        np.save(file, X)
-        np.save(file, y)
+        np.savez(file, a = X, b = y)
     print("Saved.")
 
 def load(filename):
     print("Loading samples from Data file...")
     X, y = None, None
     with open('./Data/' + filename + ".R0", 'rb') as file :
-        X = np.load(file)
-        y = np.load(file)
+        data = np.load(file, allow_pickle=True)
+        X, y = data['a'], data['b']
     print("Loaded.")
     return X , y
 
@@ -37,8 +42,8 @@ def imagesProcess(foldername):
 
     return loadedImages
 
-def getImageDescriptor(img: Image):
-    return img.getDescriptor()
+def getImageDescriptors(img: Image):
+    return img.getDescriptors()
 
 def loadData():
     print("Loading data...")
@@ -51,14 +56,14 @@ def loadData():
     print("Loading 'Mer' images...")
     for file in listMer:
         img = Image("./Data/Mer/" + file)
-        X.append(getImageDescriptor(img))
-        classes.append(0)
+        X.append(getImageDescriptors(img))
+        y.append(0)
 
     print("Loading 'Ailleurs' images... ")
     for file in listAilleurs:
         img = Image("./Data/Ailleurs/" + file)
-        X.append(getImageDescriptor(img))
-        classes.append(1)
+        X.append(getImageDescriptors(img))
+        y.append(1)
 
     print("Creating sample arrays...")
     X, y = np.array(X), np.array(y)
@@ -66,3 +71,13 @@ def loadData():
     print("Done.")
 
     return X, y
+
+# CREATION D'UN DESCRIPTEUR :
+# - Création d'une classe implémentant Descriptor (voir classes déjà implémentés)
+# - Possiblité de passer certains éléments de votre descripteur dans la classe image (A EVITER SI POSSIBLE)
+# - Instancier cette classe dans listDescriptors
+# - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
+if __name__ == '__main__':
+    X, y = load('test_data')
+    classifier = ClassifierAxiom('PercentColors')
+    classifier_test(classifier, X, y, 1000, 0.20)
