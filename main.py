@@ -1,71 +1,68 @@
-from image import Image;
-import ai;
-import os;
+from classes.classifier_combine import ClassifierCombine
+import numpy as np
+from classes.image import Image
+import os
 
-from sklearn.model_selection import train_test_split;
-from sklearn.naive_bayes import GaussianNB;
-import file_mgr as fm
+class Main:
 
-
-tomAI = ai.PixelArrayAi()
-
-exit()
+    def __init__(self):
+        self.classifier = ClassifierCombine()
 
 
-X, y = fm.loadDatas("Percent_AI")
-sum = 0
-for i in range(1000):
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.10);
+def save(filename, X: np.array, y: np.array):
+    print("Saving samples in Data file...")
+    with open('./Data/' + filename + ".R0", 'wb') as file:
+        np.save(file, X)
+        np.save(file, y)
+    print("Saved.")
 
-    classifieur = GaussianNB();
-    classifieur.fit(X_train, y_train);
+def load(filename):
+    print("Loading samples from Data file...")
+    X, y = None, None
+    with open('./Data/' + filename + ".R0", 'rb') as file :
+        X = np.load(file)
+        y = np.load(file)
+    print("Loaded.")
+    return X , y
 
-    y_preditected = classifieur.predict(X_test);
-    print("Real classes :");
-    print(y_test);
-    print("Predicted classes :");
-    print(y_preditected);
+def imageProcess(filename):
+    return Image(filename)
 
-    print("Score: ")
-    score = classifieur.score(X_test, y_test)
-    sum += score
-    print(score)
-    print()
+def imagesProcess(foldername):
+    images = os.listdir(foldername)
+    loadedImages = []
 
-print("Average score :")
-print(sum / 1000)
+    for image in images:
+        loadedImages.append(imageProcess(image))
 
-exit()
+    return loadedImages
 
-images = []
-mer = []
-ailleurs = []
-listMer = os.listdir('./Data/Mer')
-listAilleurs = os.listdir('./Data/Ailleurs')
+def getImageDescriptor(img: Image):
+    return img.getDescriptor()
 
-print("Loading images...")
-for file in listMer:
-    mer.append(Image("./Data/Mer/" + file))
+def loadData():
+    print("Loading data...")
 
-for file in listAilleurs:
-    ailleurs.append(Image("./Data/Ailleurs/" + file))
+    X = []
+    y = []
+    listMer = os.listdir('./Data/Mer')
+    listAilleurs = os.listdir('./Data/Ailleurs')
 
-images.append(mer)
-images.append(ailleurs)
-print("Done.")
+    print("Loading 'Mer' images...")
+    for file in listMer:
+        img = Image("./Data/Mer/" + file)
+        X.append(getImageDescriptor(img))
+        classes.append(0)
 
-orange = Image("./orange.jpg");
-sea = Image("./sea.jpg");
+    print("Loading 'Ailleurs' images... ")
+    for file in listAilleurs:
+        img = Image("./Data/Ailleurs/" + file)
+        X.append(getImageDescriptor(img))
+        classes.append(1)
 
-percentColorsAI = ai.PercentColorsAI()
-percentColorsAI.fit(1, images)
+    print("Creating sample arrays...")
+    X, y = np.array(X), np.array(y)
 
-print(orange.name + ": " + str(percentColorsAI.evaluate(orange)));
-print(sea.name + ": " + str(percentColorsAI.evaluate(sea)));
+    print("Done.")
 
-percentColorsAI.save_data('Percent_AI');
-
-percentColorsAIClone = ai.PercentColorsAI()
-percentColorsAIClone.fit(0, "Percent_AI")
-print(orange.name + ": " + str(percentColorsAIClone.evaluate(orange)));
-print(sea.name + ": " + str(percentColorsAIClone.evaluate(sea)));
+    return X, y
