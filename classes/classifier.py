@@ -11,6 +11,3 @@ class Classifier(ABC):
 
     def reset(self):
         pass
-
-    def score(self, y_test: np.array, y_predicted: np.array):
-        pass

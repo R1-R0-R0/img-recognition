@@ -27,9 +27,6 @@ class ClassifierAxiom(Classifier):
     def reset(self):
         self.classifier = GaussianNB()
 
-    def score(self, y_test: np.array, y_predicted: np.array):
-        return self.classifier.score(y_test, y_predicted)
-
 
 def extract_X(criterias, infos):
     results = []
