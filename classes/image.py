@@ -113,3 +113,6 @@ class Image:
                 result[x][y] = self.partition(minX,minY,maxX,maxY)
 
         return result
+
+    def getPath(self):
+        return self.name
