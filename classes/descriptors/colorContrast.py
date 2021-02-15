@@ -1,33 +1,49 @@
 from classes.descriptor import Descriptor
+from classes.utils.imgResizer import ImageResizer
+import cv2
+import numpy as np
+import pixel as px
+from PIL import Image
+from os import path as p
 
 class ColorContrast(Descriptor):
 
     def __init__(self):
-        #self.desiredSize = 100
+        desiredSize = 128
+        self.resizer = ImageResizer(desiredSize)
         
     def getImageInfo(self, image):
-        #return imgDescriptor(image.getPath(), desiredSize).getDescriptor()
+        path = image.getPath()
+
+        if (path[-3:] != 'jpg' and path[-4:] != 'jpeg'):
+            path = convertToJpg(path)
+        
+        resizedImg = self.resizer.cv2Resize(path)
+
+        hogDescriptor = cv2.HOGDescriptor("./classes/utils/hog.xml")
+        computedHog = hogDescriptor.compute(resizedImg)
+        hog = []
+
+        for i in computedHog:
+            hog.append(i[0])
+
+        return hog
 
     def getName(self):
         return 'ColorContrast'
 
-            def convertToJpg(self, path):
-        image = cv2.imread(path)
-        newPath = path[0:-3]+'jpg'
-        if not(p.exists(newPath)):
-            cv2.imwrite(newPath, image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
-        return newPath
 
-    def getHOG(self):
-        path = self.f
-        if (path[len(path) - 3:] == 'png'):
-            path = self.convertToJpg(path)
-            self.resizedImg = imgDescriptor(path,self.desiredSize).resizedImg
-        print(path , len(self.resizedImg))
-        img = self.resizedImg
-        hog = cv2.HOGDescriptor("hog.xml")
-        h = hog.compute(img)
-        hog = []
-        for i in h:
-            hog.append(i[0])
-        return np.array(hog)
+# /!\ PEUT CAUSER DES SOUCIS
+def convertToJpg(path):
+    if (path[-3:] != 'png'):
+        print("IMAGE ", path, " NON PRIS EN CHARGE")
+        exit()
+
+    image = cv2.imread(path)
+    newPath = path + '.jpg'
+
+    if not(p.exists(newPath)):
+        cv2.imwrite(newPath, image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+
+    return newPath
+        

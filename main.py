@@ -82,7 +82,7 @@ def loadPartialData(numbersOfImages, displayLoadingFile = False):
 
     print("Loading 'Mer' images...")
     for file in listMer:
-        if (displayLoadingFile): print("Loading Mer ", file)
+        if (displayLoadingFile): print(len(X)+1, '/', numbersOfImages*2)
         img = Image("./Data/Mer/" + file)
         X.append(getImageDescriptors(img))
         y.append(0)
@@ -90,7 +90,7 @@ def loadPartialData(numbersOfImages, displayLoadingFile = False):
 
     print("Loading 'Ailleurs' images... ")
     for file in listAilleurs:
-        if (displayLoadingFile): print("Loading Ailleurs ", file)
+        if (displayLoadingFile): print(len(X)+1, '/', numbersOfImages*2)
         img = Image("./Data/Ailleurs/" + file)
         X.append(getImageDescriptors(img))
         y.append(1)
@@ -109,6 +109,6 @@ def loadPartialData(numbersOfImages, displayLoadingFile = False):
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = loadPartialData(50, True)
-    classifier = ClassifierAxiom('PixelArrayResize')
+    X, y = loadPartialData(20, True)
+    classifier = ClassifierAxiom('ColorContrast')
     classifier_test(classifier, X, y, 100, 0.20, True)
