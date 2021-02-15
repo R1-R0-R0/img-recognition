@@ -5,16 +5,16 @@ import numpy as np;
 
 
 class ClassifierCombine(Classifier):
-    default_train_size = 0.5
-    
+
     def __init__(self):
         self.classifiers = []
         self.classifier = GaussianNB()
+        self.default_train_size = 0.5
 
     def fit(self, X_train: np.array, y_train: np.array):
         assert len(self.classifiers) > 0
 
-        X_train1, X_train2, y_train1, y_train2 = train_test_split(X, y, test_size=default_train_size)
+        X_train1, X_train2, y_train1, y_train2 = train_test_split(X_train, y_train, test_size=self.default_train_size)
         
         for classifier in self.classifiers:
             classifier.fit(X_train1, y_train1)
