@@ -15,7 +15,7 @@ class Classifier(ABC):
         pass
 
 
-def classifier_test(classifier: Classifier, X: np.array, y: np.array, number_of_tests = 50, default_test_size = 0.20):
+def classifier_test(classifier: Classifier, X: np.array, y: np.array, number_of_tests = 50, default_test_size = 0.20, display_multiple_tests = False):
     assert default_test_size > 0
     assert default_test_size < 1
     
@@ -36,6 +36,9 @@ def classifier_test(classifier: Classifier, X: np.array, y: np.array, number_of_
     print("--- Testing ", number_of_tests, " times ---")
     sum = 0
     for i in range(number_of_tests):
+        if (display_multiple_tests):
+            print("Test n°", i)
+
         classifier.reset()
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=default_test_size);
 

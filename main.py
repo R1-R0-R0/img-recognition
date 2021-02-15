@@ -72,7 +72,7 @@ def loadData():
 
     return X, y
 
-def loadPartialData(numbersOfImages):
+def loadPartialData(numbersOfImages, displayLoadingFile = False):
     print("Loading data partially...")
 
     X = []
@@ -82,6 +82,7 @@ def loadPartialData(numbersOfImages):
 
     print("Loading 'Mer' images...")
     for file in listMer:
+        if (displayLoadingFile): print("Loading Mer ", file)
         img = Image("./Data/Mer/" + file)
         X.append(getImageDescriptors(img))
         y.append(0)
@@ -89,6 +90,7 @@ def loadPartialData(numbersOfImages):
 
     print("Loading 'Ailleurs' images... ")
     for file in listAilleurs:
+        if (displayLoadingFile): print("Loading Ailleurs ", file)
         img = Image("./Data/Ailleurs/" + file)
         X.append(getImageDescriptors(img))
         y.append(1)
@@ -107,6 +109,6 @@ def loadPartialData(numbersOfImages):
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = loadPartialData(10)
+    X, y = loadPartialData(50, True)
     classifier = ClassifierAxiom('PixelArrayResize')
-    classifier_test(classifier, X, y, 100, 0.20)
+    classifier_test(classifier, X, y, 100, 0.20, True)
