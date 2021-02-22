@@ -113,7 +113,7 @@ def loadPartialData(numbersOfImages, displayLoadingFile = False):
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = load('test_data_2.R0')
+    X, y = load('data')
     # X, y = loadPartialData(10)
     # save('test_data_2.R0', X, y)
     classifier = ClassifierAxiom('PixelArrayResize')
