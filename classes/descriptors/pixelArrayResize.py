@@ -3,8 +3,7 @@ from classes.utils.imgResizer import ImageResizer
 
 class PixelArrayResize(Descriptor):
 
-    def __init__(self):
-        desizedSize = 100
+    def __init__(self, desiredSize = 100):
         self.resizer = ImageResizer(desizedSize)
         
     def getImageInfo(self, image):
