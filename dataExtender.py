@@ -15,12 +15,10 @@ from os import path as p
 
 def mirror(cv2Image):
     flipHorizontal = cv2.flip(cv2Image, 1)
-    transformedName = '_mirrored'
     return flipHorizontal
 
 
 def noise(cv2Image):
-    transformedName = '_noised'
     ra = Random()
     size = 30
     r, g, b = cv2.split(cv2Image)
@@ -58,7 +56,9 @@ def createNewImage(imagePath):
         newPath = newDirPath + newName
         if not p.exists(newPath):
             cv2.imwrite(newPath, t.value(originalImage))
-            print(newPath)
+            print(newPath + ' ----- CREATED')
+        else:
+            print(newPath + ' ----- already exist')
 
 
 def creatAll():
