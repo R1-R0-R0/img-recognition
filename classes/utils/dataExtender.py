@@ -1,7 +1,6 @@
 import os
 from random import random, Random
 import cv2
-# from PIL import Image
 from math import ceil
 
 
@@ -9,6 +8,7 @@ noisy_delta = 30
 mirror_extension = '_mirror/'
 noise_extension = '_noise_' + str(noisy_delta) + '/'
 random_generator = Random()
+extensions = [mirror_extension, noise_extension]
 
 # ---
 
@@ -85,7 +85,3 @@ def createExtendedImages():
         createExtendedImage('./Data/Ailleurs', file)
         counter += 1
         print(ceil((counter / numberOfImages)*100), '%', end = '\r')
-
-
-# Renommer classifier_axiom en classifier_multi_axiom
-# Faire un combiner précoce et tardif

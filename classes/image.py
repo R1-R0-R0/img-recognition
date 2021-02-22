@@ -1,8 +1,13 @@
 from PIL import Image as Img;
 import matplotlib.pyplot as plt
-from pixel import Pixel;
 from math import ceil
 import classes.descriptors.listDescriptors as listDescriptors
+
+class Pixel:
+    def __init__(self, r, g, b):
+        self.red = r;
+        self.green = g;
+        self.blue = b;
 
 class Image:
 
