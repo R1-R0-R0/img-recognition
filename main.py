@@ -3,7 +3,7 @@ from classes.classifier_axiom import ClassifierAxiom
 import numpy as np
 from classes.image import Image
 import os
-from classes.classifier import classifier_test
+from classes.classifier import classifier_test, Classifier
 from math import ceil
 
 class Main:
@@ -113,9 +113,9 @@ def loadPartialData(numbersOfImages, displayLoadingFile = False):
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = load('data')
-    # X, y = loadPartialData(10)
-    # save('test_data_2.R0', X, y)
+    #X, y = load('data')
+    X, y = loadData()
+    save('data', X, y)
     classifier = ClassifierAxiom('PixelArrayResize')
     # classifier_test(classifier, X, y, 100, 0.20, True)
     # classifier = ClassifierCombine()
