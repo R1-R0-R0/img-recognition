@@ -5,13 +5,21 @@ from sklearn.metrics import accuracy_score
 
 class Classifier(ABC):
 
-    def fit(self, X_train: np.array, y_train: np.array):
+    def fit(self, all_X: np.array, y_train: np.array):
         pass
 
-    def predict(self, X: np.array):
+    def predict(self, all_X: np.array):
         pass
 
     def reset(self):
+        pass
+
+class ClassifierCombine(Classifier):
+
+    def addClassifier(self, classifier: Classifier):
+        pass
+
+    def removeClassifier(self, classifier: Classifier):
         pass
 
 

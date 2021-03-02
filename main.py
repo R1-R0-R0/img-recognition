@@ -1,6 +1,7 @@
-from classes.classifier_combine import ClassifierCombine
-from classes.classifier_axiom import ClassifierAxiom
-from classes.classifier_combine_forward import ClassifierCombineForward
+from classes.classifier_combine import ClassifierCombineGaussianNB
+from classes.classifier_combine import ClassifierCombineAverage
+from classes.classifier_axiom import ClassifierGaussianNB
+from classes.classifier_axiom import ClassifierNearestNeighbors
 import numpy as np
 from classes.image import Image
 import os
@@ -67,14 +68,14 @@ def loadDirectory(dirname, classType, nbOfImages = None, displayLoadingFile = Fa
     return X, y
 
 def loadData(numbersOfImages = None, displayLoadingFile = False):
-    if (numbersOfImages != None): print("Loading data partially...")
+    if (numbersOfImages != None): print("Loading " + str(numbersOfImages) + " images...")
     else: print("Loading all data (this might take a while)...")
 
     X = []
     y = []
     dirData = './Data/{}'
     dirsData = [dirData + '/'] + [dirData + extension for extension in DataExtender.extensions]
-    for temp in [['Mer', 0], ['Ailleurs', 1]]:
+    for temp in [['Mer', 1], ['Ailleurs', -1]]:
         name = temp[0]
         classType = temp[1]
         print("Loading '" + name + "' images...")
@@ -98,16 +99,19 @@ def loadData(numbersOfImages = None, displayLoadingFile = False):
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = load('data_save')
-    # X, y = loadData(10)
+    # X, y = load('data_save')
+    X, y = loadData(10)
     # save('data_save', X, y)
     # classifier = ClassifierAxiom('PixelArrayResize')
-    classifier = ClassifierAxiom('PercentColors')
+    # classifier = ClassifierGaussianNB('PercentColors')
+    classifier = ClassifierGaussianNB('PixelArrayResize:32')
+    # classifier = ClassifierGaussianNB('ColorContrast:128')
+    # classifier = ClassifierCombineGaussianNB()
     # classifier = ClassifierCombine()
-    # classifier.addClassifier(ClassifierAxiom('PercentColors'))
-    # classifier.addClassifier(ClassifierAxiom('PixelArrayResize'))
-    # classifier.addClassifier(ClassifierAxiom('ColorContrast'))
-    classifier_test(classifier, X, y, 10000, 0.20, False)
+    # classifier.addClassifier(ClassifierGaussianNB('PercentColors'))
+    # classifier.addClassifier(ClassifierGaussianNB('PixelArrayResize'))
+    # classifier.addClassifier(ClassifierGaussianNB('ColorContrast'))
+    classifier_test(classifier, X, y, 100, 0.20, False)
     # DataExtender.createExtendedImage('./Data/Mer', '838s.jpg')
     # DataExtender.createExtendedImages()
     

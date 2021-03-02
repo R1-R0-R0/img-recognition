@@ -62,22 +62,6 @@ class Image:
 
         return dico
 
-    def get_colors_percents(self):
-        percents = [0] * 3;
-
-        for i in range(self.width):
-            for j in range(self.height):
-                pixel = self.get_pixel(i, j);
-                percents[0] += pixel.red;
-                percents[1] += pixel.green;
-                percents[2] += pixel.blue;
-
-        sum = percents[0] +  percents[1] + percents[2];
-        percents[0] = percents[0] / sum
-        percents[1] = percents[1] / sum
-        percents[2] = percents[2] / sum
-        return percents;
-
     def partition(self, minX, minY, maxX, maxY):
         assert minX <= maxX and minY <= maxY
         assert minX >= 0 and minY >= 0
