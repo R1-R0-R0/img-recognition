@@ -1,6 +1,6 @@
 from classes.classifier import Classifier
 from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import NearestNeighbors
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
 import numpy as np
  
@@ -46,8 +46,7 @@ class ClassifierGaussianNB(Classifier):
     def reset(self):
         self.classifier = GaussianNB()
 
-# Not working
-class ClassifierNearestNeighbors(Classifier):
+class ClassifierKNeighbors(Classifier):
     def __init__(self, nb_neighbors, *descriptorsName):
         self.descriptorsName = descriptorsName
         self.nbNeighbors = nb_neighbors
@@ -62,14 +61,13 @@ class ClassifierNearestNeighbors(Classifier):
         return self.classifier.predict(X)
 
     def reset(self):
-        self.classifier = NearestNeighbors(n_neighbors=self.nbNeighbors, algorithm='ball_tree')
+        self.classifier = KNeighborsClassifier(n_neighbors=self.nbNeighbors)
 
-# Not working
 class ClassifierMLP(Classifier):
 
     def __init__(self, *descriptorsName):
         self.descriptorsName = descriptorsName
-        self.classifier = MLPClassifier()
+        self.reset()
 
     def fit(self, all_X: np.array, y_train: np.array):
         X_train = fit(self.descriptorsName, all_X)
@@ -80,4 +78,4 @@ class ClassifierMLP(Classifier):
         return self.classifier.predict(X)
 
     def reset(self):
-        self.classifier = GaussianNB()
+        self.classifier = MLPClassifier(random_state=1, max_iter=300)
