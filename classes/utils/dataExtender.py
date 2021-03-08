@@ -2,13 +2,30 @@ import os
 from random import random, Random
 import cv2
 from math import ceil
+from os import path as p
 
 
-noisy_delta = 30
+noisy_delta = 15
 mirror_extension = '_mirror/'
 noise_extension = '_noise_' + str(noisy_delta) + '/'
 random_generator = Random()
 extensions = [mirror_extension, noise_extension]
+
+# ---
+
+# /!\ PEUT CAUSER DES SOUCIS
+def convertToJpg(path):
+    if (path[-3:] != 'png'):
+        print("IMAGE ", path, " NON PRIS EN CHARGE")
+        exit()
+
+    image = cv2.imread(path)
+    newPath = path + '.jpg'
+
+    if not(p.exists(newPath)):
+        cv2.imwrite(newPath, image, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+
+    return newPath
 
 # ---
 
@@ -55,16 +72,22 @@ def createExtendedDirectories():
         os.makedirs('./Data/Ailleurs' + noise_extension)
 
 def createExtendedImage(dirname, filename):
-    originalImage = cv2.imread(dirname + '/' + filename, cv2.IMREAD_UNCHANGED)
+    path = dirname + '/' + filename
+    if (path[-3:] != 'jpg' and path[-4:] != 'jpeg'):
+        path = convertToJpg(path)
+        filename += '.jpg'
+        
+    originalImage = cv2.imread(path, cv2.IMREAD_UNCHANGED)
+
     try:
-        createMirroredImage('./Data/Mer', filename, originalImage)
+        createMirroredImage(dirname, filename, originalImage)
     except:
-        pass
+        print("ERR MIRROR: " + path)
     
     try:
-        createNoisyImage('./Data/Mer', filename, originalImage)
+        createNoisyImage(dirname, filename, originalImage)
     except:
-        pass
+        print("ERR NOISY: " + path)
 
 def createExtendedImages():
     createExtendedDirectories()
