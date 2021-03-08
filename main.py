@@ -3,6 +3,7 @@ from classes.classifier_combine import ClassifierCombineAverage
 from classes.classifier_axiom import ClassifierGaussianNB
 from classes.classifier_axiom import ClassifierKNeighbors
 from classes.classifier_axiom import ClassifierMLP
+from classes.classifier_axiom import ClassifierRandomForest
 import numpy as np
 from classes.image import Image
 import os
@@ -100,17 +101,19 @@ def loadData(numbersOfImages = None, displayLoadingFile = False):
 # - Instancier cette classe dans listDescriptors
 # - Tester votre descripteur avec le code ci-dessous en l'appelant par son nom défini
 if __name__ == '__main__':
-    X, y = load('data_save')
-    # X, y = loadData(10)
-    # save('data_save_p', X, y)
-    classifier = ClassifierMLP('PercentColors')
+    # X, y = load('data_save')
+    X, y = loadData()
+    
+
+    save('bijour', X, y)
+    # classifier = ClassifierMLP('PercentColors')
     # classifier = ClassifierGaussianNB('PixelArrayResize:32')
     # classifier = ClassifierGaussianNB('ColorContrast:128')
     # classifier = ClassifierCombineGaussianNB()
     # classifier.addClassifier(ClassifierGaussianNB('PercentColors'))
     # classifier.addClassifier(ClassifierGaussianNB('PixelArrayResize:32'))
     # classifier.addClassifier(ClassifierGaussianNB('ColorContrast'))
-    classifier_test(classifier, X, y, 100, 0.20, True)
+    # classifier_test(finalClassifier, X, y, 10, 0.20, True)
     # DataExtender.createExtendedImage('./Data/Mer', '838s.jpg')
     # DataExtender.createExtendedImages()
     

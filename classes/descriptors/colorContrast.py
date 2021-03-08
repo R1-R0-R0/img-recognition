@@ -8,9 +8,9 @@ from os import path as p
 
 class ColorContrast(Descriptor):
 
-    def __init__(self, desiredSize):
-        self.desiredSize = desiredSize
-        self.resizer = ImageResizer(desiredSize)
+    def __init__(self):
+        self.desiredSize = 128
+        self.resizer = ImageResizer(self.desiredSize)
         
     def getImageInfo(self, image):
         path = image.getPath()
@@ -30,7 +30,7 @@ class ColorContrast(Descriptor):
         return hog
 
     def getName(self):
-        return 'ColorContrast:' + str(self.desiredSize)
+        return 'ColorContrast'
 
 
 # /!\ PEUT CAUSER DES SOUCIS

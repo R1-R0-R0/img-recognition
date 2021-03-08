@@ -5,6 +5,8 @@ from classes.descriptors.colorContrast import ColorContrast
 def getAllDescriptors():
     return [
         PercentColors(),
-        PixelArrayResize(32),
-        ColorContrast(128)
+        PixelArrayResize(11),
+        PixelArrayResize(23),
+        PixelArrayResize(31),
+        ColorContrast()
     ]

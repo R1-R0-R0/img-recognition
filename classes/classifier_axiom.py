@@ -2,6 +2,7 @@ from classes.classifier import Classifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.ensemble import RandomForestClassifier
 import numpy as np
  
 
@@ -79,3 +80,21 @@ class ClassifierMLP(Classifier):
 
     def reset(self):
         self.classifier = MLPClassifier(random_state=1, max_iter=300)
+
+
+class ClassifierRandomForest(Classifier):
+
+    def __init__(self, *descriptorsName):
+        self.descriptorsName = descriptorsName
+        self.reset()
+
+    def fit(self, all_X: np.array, y_train: np.array):
+        X_train = fit(self.descriptorsName, all_X)
+        self.classifier.fit(X_train, y_train)
+
+    def predict(self, all_X: np.array):
+        X = predict(self.descriptorsName, all_X)
+        return self.classifier.predict(X)
+
+    def reset(self):
+        self.classifier = RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1)

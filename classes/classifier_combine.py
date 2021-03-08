@@ -6,13 +6,12 @@ import numpy as np;
 
 # Dans le cas ou plusieurs descripteurs sont utilisés, leurs combinaisons se fait par "backward"
 
-# Not working correctly
 class ClassifierCombineGaussianNB(ClassifierCombine):
 
-    def __init__(self):
+    def __init__(self, default_train_size = 0.5):
         self.classifiers = []
         self.classifier = GaussianNB()
-        self.default_train_size = 0.5
+        self.default_train_size = default_train_size
 
     def fit(self, all_X: np.array, y_train: np.array):
         assert len(self.classifiers) > 0
