@@ -141,7 +141,7 @@ def loadAll():
     X1, y1 = load('data_0-120')
     X2, y2 = load('data_120-240')
     X3, y3 = load('data_240-360')
-    X4, y4 = load ('data_360-480')
+    X4, y4 = load('data_360-480')
 
     X3 = np.concatenate((X3, X4))
     y3 = np.concatenate((y3, y4))
@@ -169,7 +169,7 @@ if __name__ == '__main__':
     X, y = loadAll()
 
     classifier = Main().classifier
-    classifier_test(classifier, X, y, 50, 0.20, True)
+    classifier_test(classifier, X, y, 100, 0.15, True)
 
     # save('bijour', X, y)
     # classifier = ClassifierGaussianNB('PercentColors')

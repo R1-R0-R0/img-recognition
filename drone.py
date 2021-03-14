@@ -3,6 +3,7 @@ from classes.image import Image
 import os
 from math import ceil
 from main import Main
+from main import loadAll
 
 trained_data_file = 'trained_data'
 
@@ -11,29 +12,26 @@ def createClassifier():
 
 def loadDir(dirname):
     print("Loading data " + dirname)
+    names = []
     X = []
 
     imagesList = os.listdir(dirname)
-    numbersOfImages = len(imagesList) if (nbOfImages == None) else nbOfImages
+    numbersOfImages = len(imagesList)
 
     for file in imagesList:
-        if (displayLoadingFile): print(len(X)+1, '/', nbOfImages*2)
+        names.append(file)
+        print(len(X)+1, '/', numbersOfImages, end = '\r')
         img = Image(dirname + file)
-        X.append(getImageDescriptors(img))
+        X.append(img.getDescriptors())
         print(ceil((len(X) / numbersOfImages)*100), '%', end = '\r')
 
-    return X
+    return X, names
 
 def predict_main(dirName):
-    names = []
-
-    X = loadDir(dirName)
-    X_train, y_train = loadData(trained_data_file)
+    X, names = loadDir(dirName)
+    X_train, y_train = loadAll() # loadData(trained_data_file)
     classifier = createClassifier()
     classifier.fit(X_train, y_train)
 
     predictions = classifier.predict(X)
-    for image in X:
-        names.append(image.name)
-
     return [names, predictions]
